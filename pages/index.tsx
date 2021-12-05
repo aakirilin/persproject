@@ -149,13 +149,13 @@ const socialnetworks = [
 
 const Menu : FC<{ sections:ISection[], socialnetworks:ISocialnetwork[] }> = (props) => {
 
-  const socialnetworkElement = props.socialnetworks.map(s => <a className={styles.header_navmenu_socialnetwork} href={s.link}>
+  const socialnetworkElement = props.socialnetworks.map((s, i) => <a key={i} className={styles.header_navmenu_socialnetwork} href={s.link}>
       <RoundImage size={50} src={s.image} className='p-1' />
   </a>);
   
-  const links = props.sections.map(s => <Nav.Link href={"#"+s.id} className="nav-link">{s.name}</Nav.Link>);
+  const links = props.sections.map((s, i) => <Nav.Link key={i} href={"#"+s.id} className="nav-link">{s.name}</Nav.Link>);
 
-  const notes = ['+7(961)128-37-18', 'persproekt@yandex.ru'].map(n => <p className='color-white pl-2 mt-auto mb-auto'>{n}</p>);
+  const notes = ['+7(961)128-37-18', 'persproekt@yandex.ru'].map((n, i) => <p key={i} className='color-white pl-2 mt-auto mb-auto'>{n}</p>);
 
 
   const rigth = socialnetworkElement.concat(notes);
@@ -210,7 +210,7 @@ const Features: FC = () => {
       }
   ];
 
-  const featuresElements = features.map(s => <Col className='p-3' md={3} sm={6}>
+  const featuresElements = features.map((s, i) => <Col key={i} className='p-3' md={3} sm={6}>
       <div className='w-100 d-flex justify-content-center'>
           <RoundImage src={s.image} size={60} className='color-white'/>
       </div>
@@ -227,12 +227,12 @@ const Features: FC = () => {
 
 const Services : FC<{ services: Array<IService>, header:string }> = (props) =>{
 
-  const servicesElements = props.services.map(s => <Col className="mt-3" md={6} sm={12}>
+  const servicesElements = props.services.map((s,i) => <Col key={i} className="mt-3" md={6} sm={12}>
       <div className='w-100 d-flex justify-content-center dotted-line-bottom pb-3'>
           <RoundImage src={s.image} size={100}/>
       </div>
       <h4 className='w-100 text-center'>{s.header}</h4>
-      {s.text.map(t => <p className='w-100 text-center'>{t}</p>)}
+      {s.text.map((t,i) => <p key={i} className='w-100 text-center'>{t}</p>)}
   </Col>);
 
   return <Fragment>
@@ -279,7 +279,7 @@ const Galery : FC = () =>{
 
 
 
-  const imagesElements = images.map(i => <Col className='p-2 color-black' lg={4} md={6} sm={10} >
+  const imagesElements = images.map((i, n) => <Col key={n} className='p-2 color-black' lg={4} md={6} sm={10} >
       <Card className='p-2 color-black'>
           <Card.Img variant="top" src={i.image} />
           <Card.Body>
@@ -317,7 +317,7 @@ const About: FC = () => {
       }
   ];
 
-  const aboutElements = about.map(a => <p className='text-justify text-indent'>{a.text}</p>);
+  const aboutElements = about.map((a,i) => <p key={i} className='text-justify text-indent'>{a.text}</p>);
 
   return <Fragment>
       <Container>
@@ -337,7 +337,7 @@ const AboutMe: FC = () => {
       }
   ];
 
-  const aboutElements = about.map(a => <div className='align-items-center'>
+  const aboutElements = about.map((a,i) => <div key={i} className='align-items-center'>
       <div className='d-flex justify-content-center w-100 mb-3'>
           <RoundImage src={a.image} size={150}/>
       </div>
@@ -483,9 +483,9 @@ const Contacts : FC<{socialnetworks:ISocialnetwork[] }> = (props) => {
       }
   ]
 
-  const contactsElements = contacts.map(c =><h4 className='text-center w-100'>{c.title}{c.text}</h4>);
+  const contactsElements = contacts.map((c,i) =><h4 key={i} className='text-center w-100'>{c.title}{c.text}</h4>);
 
-  const socialnetworkElement = props.socialnetworks.map(s => <a href={s.link} className='w-auto'>
+  const socialnetworkElement = props.socialnetworks.map((s, i) => <a key={i} href={s.link} className='w-auto'>
   <RoundImage src={s.image} size={50}/>
 </a>);
 
@@ -503,7 +503,7 @@ const Contacts : FC<{socialnetworks:ISocialnetwork[] }> = (props) => {
 
 const Home: NextPage = () => {
 
-  const logo = Array.from('ПерсПроект').map(l => <div className='logo-letter'>{l}</div>);
+  const logo = Array.from('ПерсПроект').map((l, i) => <div key={i} className='logo-letter'>{l}</div>);
 
   const sections : ISection[] = [
     {
@@ -550,7 +550,7 @@ const Home: NextPage = () => {
     }
 ]
 
-const sectionsElements = sections.map(s => <section className={"page-section " +s.className} id={s.id}>{s.component}</section>);
+const sectionsElements = sections.map((s,i) => <section key={i} className={"page-section " +s.className} id={s.id}>{s.component}</section>);
 
   return (
     <Fragment>
