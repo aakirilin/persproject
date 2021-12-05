@@ -374,10 +374,10 @@ const Order : FC<{ services: Array<IService>, dopServices: Array<IService> }> = 
   }
 
   const serviceId = (i:number) => `order_services_${i}`;
-  const servicesElement = services.map((s, i) =><div><Form.Check {...register(serviceId(i))} id={serviceId(i)} type={'checkbox'} label={s.header} /> </div> );
+  const servicesElement = services.map((s, i) =><div key={i} ><Form.Check {...register(serviceId(i))} id={serviceId(i)} type={'checkbox'} label={s.header} /> </div> );
 
   const dopServiceId = (i:number) => `order_dopservices_${i}`;
-  const dopServicesElement = dopServices.map((s, i) => <div><Form.Check id={dopServiceId(i)} type={'checkbox'} label={s.header} /></div>   );
+  const dopServicesElement = dopServices.map((s, i) => <div key={i} ><Form.Check id={dopServiceId(i)} type={'checkbox'} label={s.header} /></div>   );
 
   const [selectService, setSelectService] = useState<IService|undefined>();
 
