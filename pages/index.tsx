@@ -7,7 +7,7 @@ import styles from '../styles/Home.module.css'
 import {Stack, Nav, Navbar, Card, Button, Form, Container, Col, Row} from 'react-bootstrap';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Inputs } from './Inputs'
+import { Inputs } from '../Inputs'
 
 interface IService {
   image:string,

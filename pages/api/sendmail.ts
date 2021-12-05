@@ -1,6 +1,6 @@
 import sgMail from '@sendgrid/mail'
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Inputs } from '../Inputs';
+import { Inputs } from '../../Inputs';
 import * as nodemailer from 'nodemailer';
 
 
