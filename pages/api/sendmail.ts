@@ -13,29 +13,26 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         port: 465,
         secure: true, 
         auth: {
-          user: process.env.EMAIL,
-          pass: process.env.PASSWORD,
+          user: `${process.env.EMAIL}`,
+          pass: `${process.env.PASSWORD}`,
         },
       });
+
+    const servises = selectServises.map((s:string) => `<p>${s}</p>`).join('');
 
     const mailOption = {
         from: `${email}`,
         to: `${process.env.EMAIL}`,
-        subject: `New mail from ${email}`,
-        text: `
-        ${name} (${tel}) wrote:
-        ${message} 
-        ${selectServises}
-        `,
+        subject: 'заявка на проект',
+        text: '',
+        html:`<div><p>${name}</p><p>${tel}</p><p>${email}</p><p>${message}</p>${servises}</div>`
       };
 
-      transporter.sendMail(mailOption, (err, data) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("mail send");
-        }
-      });
-
-      res.send("success");
+    try{
+      var result = await transporter.sendMail(mailOption);
+      res.send('{"result":true}');
+    }
+    catch(e){
+      res.send('{"result":false}');
+    }
 }

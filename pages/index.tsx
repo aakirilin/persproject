@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Fragment, useState, FC } from 'react'
 import styles from '../styles/Home.module.css'
 
-import {Stack, Nav, Navbar, Card, Button, Form, Container, Col, Row} from 'react-bootstrap';
+import {Modal, Stack, Nav, Navbar, Card, Button, Form, Container, Col, Row} from 'react-bootstrap';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Inputs } from '../Inputs'
@@ -385,6 +385,12 @@ const Order : FC<{ services: Array<IService>, dopServices: Array<IService> }> = 
       setSelectService(services[0]);
   }
 
+  const [show, setShow] = useState(false);
+  const [sendMailResult, setSendMailResult] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const sendMail : SubmitHandler<Inputs> = async (data: Inputs) => {
 
     const servises = new Array<string>();
@@ -401,16 +407,17 @@ const Order : FC<{ services: Array<IService>, dopServices: Array<IService> }> = 
     data.selectServises = servises;
 
     try {
-      await fetch("/api/sendmail", {
+      var response = await fetch("/api/sendmail", {
         "method": "POST",
         "headers": { "content-type": "application/json" },
         "body": JSON.stringify(data)
       })
-
-            //if sucess do whatever you like, i.e toast notification
-      //setTimeout(() => reset(), 2000);
+      var sendMailStatus = await response.json();
+      setSendMailResult(sendMailStatus.result);
+      handleShow();
     } catch (error) {
-        // toast error message. whatever you wish 
+        setSendMailResult(false);
+        handleShow();
     }
   };
 
@@ -452,6 +459,17 @@ const Order : FC<{ services: Array<IService>, dopServices: Array<IService> }> = 
           </Card.Body>
       </Card>
       
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Нужен проект!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{sendMailResult? 'Ваша заявка принята!': 'К сожалению сейчас мы не можем принять Вашу заявку. Пожалуйста отправьте ее позже.'}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Закрыть
+          </Button>
+        </Modal.Footer>
+      </Modal>
   </Fragment>
 }
 
