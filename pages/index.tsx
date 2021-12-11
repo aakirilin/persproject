@@ -554,12 +554,12 @@ const Home: NextPage = () => {
         component:<Fragment><About /><AboutMe /></Fragment>,
         className:''
     },
-    {
-        id:'Contact',
-        name:'Обратная связь',
-        component:<Contact services={services} dopServices={dopServices}/>,
-        className:''
-    },
+    // {
+    //     id:'Contact',
+    //     name:'Обратная связь',
+    //     component:<Contact services={services} dopServices={dopServices}/>,
+    //     className:''
+    // },
     {
         id:'Contacts',
         name:'Контакты',
